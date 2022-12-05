@@ -238,11 +238,15 @@ class ManageAccounts_superadmin(View):
         if request.method == 'POST':
             if 'btnUpdate' in request.POST:
                 print('update button clicked')
-                Idn = request.POST.get("uid-uid")                                                                                                                                                                                                                                                              
+                Idn = request.POST.get("uid-uid") 
+                Fname = request.POST.get("first_name")        
+                Lname = request.POST.get("last_name")                                                                                                                                                                                                                                                             
                 Email = request.POST.get("email-email")             
                 Username = request.POST.get("user-name")
-                Password = request.POST.get("pass-word")
-                update_user = Account.objects.filter(uid=Idn).update(email = Email, username = Username, password = Password)
+
+
+
+                update_user = Account.objects.filter(uid=Idn).update(email = Email, username = Username, first_name = Fname, last_name = Lname)
                 print(update_user)
                 print('user updated')               
 
