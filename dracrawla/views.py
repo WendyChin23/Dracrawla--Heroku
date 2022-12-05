@@ -297,7 +297,6 @@ class ManageAccounts(View):
                 account = Account.objects.filter(uid=Idn).delete()
 
                 print('recorded deleted')
-                return redirect('dracrawla:logout_view')  
     
 
         return redirect('dracrawla:manageaccounts_view')    
