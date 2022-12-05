@@ -1,0 +1,1 @@
+web: gunicorn digiminds.wsgi
