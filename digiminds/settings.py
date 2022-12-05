@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*8wq%2hnymzfj8y8ek7rb736l*q_d9f4@8#m)l_(&@zpm$zfcs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -151,4 +151,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-CSRF_TRUSTED_ORIGINS = ['https://dracrawla.tk','https://*.127.0.0.1', 'https://dracrawla.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://dracrawla.tk']
