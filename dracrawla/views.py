@@ -11,6 +11,8 @@ from datetime import datetime
 from passlib.hash import pbkdf2_sha256
 from cryptography.fernet import Fernet
 from django.views import static
+
+from django.contrib import messages
 # from ip2geotools.databases.noncommercial import DbIpCity
 
 
@@ -149,12 +151,16 @@ class Login(View):
             check_admin = SuperAdmin.objects.filter(username=username, password=password)
             if check_admin:
                 request.session['admin'] = username
-                if SuperAdmin.objects.filter(username=username).count()>0:    
+                if SuperAdmin.objects.filter(username=username).count()>0:
+                    messages.success(request, 'Superadmin access granted')    
                     return redirect('dracrawla:my_index_web')
 
             check_password = Account.objects.filter(username=username).values_list("password",flat=True)
             listpw = list(check_password)
-            dec_password = pbkdf2_sha256.verify(password, listToString(listpw))
+            try:
+                dec_password = pbkdf2_sha256.verify(password, listToString(listpw))
+            except ValueError:
+                pass
             check_username = Account.objects.filter(username=username)
             
             # check_user = Account.objects.filter(username=username, password=check_password)
@@ -168,10 +174,12 @@ class Login(View):
             # print(check_password)
             if check_username and dec_password:
                 request.session['usern'] = username
-                if Account.objects.filter(username=username).count()>0:                   
+                if Account.objects.filter(username=username).count()>0:  
+                        messages.success(request, 'Access granted')              
                         return redirect('dracrawla:my_index_web')
             else:   
-                    return HttpResponse('not user')    
+                    messages.error(request, 'Invalid username or password')
+                    return redirect('dracrawla:login_view')   
 
         else:   
 
@@ -210,12 +218,12 @@ class Register(View):
             form = Account(uid = Uid, first_name = Fname, last_name = Lname, email = Email, username = Username, password=enc_password)
             print('clicked')
             form.save() 
-      
             return redirect('dracrawla:login_view')
 
         else:
             print(form.errors)
-            return HttpResponse('not valid')  
+            messages.error(request, 'Unable to add account')
+            return redirect('dracrawla:register_view')
 
 
 

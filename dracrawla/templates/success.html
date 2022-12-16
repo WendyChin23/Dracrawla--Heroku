@@ -1,0 +1,23 @@
+{% for message in messages %}
+    <script>                        
+        Swal.fire({
+                title: "Success!",
+                html: "{{ message }}",
+                icon: "success",
+                timer: 3e3,
+                timerProgressBar: !1,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const e = Swal.getHtmlContainer().querySelector("b");
+                    l = setInterval(() => {
+                        e.textContent = Swal.getTimerLeft();
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(l);
+                },
+            }).then((l) => {
+                l.dismiss === Swal.DismissReason.timer && console.log("I was closed by the timer");
+            });
+    </script>                  
+{% endfor %}

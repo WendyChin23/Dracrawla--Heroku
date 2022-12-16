@@ -30,6 +30,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 
+  <!-- sweetalert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
   <style>
 
   .card {
@@ -79,6 +84,7 @@
 </head>
 
 <body>
+  {% include 'fail.html' %}
   <!-- ======= Header ======= -->
   <header id="header" class="header-inner-pages">
     <div class="container d-flex align-items-center justify-content-lg-between">
@@ -183,6 +189,7 @@
         </div>
       </div>
     </div>
+    
   </footer><!-- End Footer -->
 
   <div id="preloader"></div>
